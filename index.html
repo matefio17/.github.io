@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mateusz Markiewicz · IT Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #1a1a1a;
+    --accent: #e8ff47;
+    --accent2: #47ffe8;
+    --text: #f0f0f0;
+    --muted: #666;
+    --border: #222;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, opacity 0.2s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.3s ease, opacity 0.2s;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 4rem 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  .hero-name {
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    font-weight: 800;
+    line-height: 0.95;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-name .accent-line {
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-role {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-top: 1.5rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+    max-width: 420px;
+  }
+
+  .hero-role span { color: var(--accent2); }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 0.85rem 2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+  }
+  .btn-primary:hover {
+    background: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--accent);
+  }
+
+  .btn-ghost {
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.5;
+  }
+
+  .hero-graphic {
+    position: relative;
+    z-index: 2;
+    width: 280px;
+    height: 280px;
+  }
+
+  .hero-avatar {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    /* Placeholder gradient jeśli nie ma zdjęcia */
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar-placeholder {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    background: linear-gradient(135deg, #1a2a1a, #1a1a2a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 60px rgba(232,255,71,0.1);
+  }
+
+  .hero-orbit {
+    position: absolute;
+    inset: -30px;
+    border: 1px dashed rgba(232,255,71,0.2);
+    border-radius: 50%;
+    animation: spin 20s linear infinite;
+  }
+  .hero-orbit::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -4px;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Floating badges */
+  .float-badge {
+    position: absolute;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.9rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    animation: float 4s ease-in-out infinite;
+  }
+  .float-badge:nth-child(2) { animation-delay: -1.3s; top: 15%; right: 8%; }
+  .float-badge:nth-child(3) { animation-delay: -2.6s; bottom: 20%; left: 5%; }
+  .float-badge:nth-child(4) { animation-delay: -0.8s; bottom: 35%; right: 5%; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* SCROLL indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: fadeInUp 1s 1s both;
+  }
+  .scroll-hint::before {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--muted));
+    display: inline-block;
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 3rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: #999;
+    line-height: 1.9;
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  .about-text p strong { color: var(--text); }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .stat-box {
+    background: var(--surface);
+    padding: 1.8rem;
+    transition: background 0.2s;
+  }
+  .stat-box:hover { background: var(--surface2); }
+
+  .stat-number {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* SKILLS */
+  .skills-section { background: var(--surface); }
+
+  .skills-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 4rem;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .skill-card {
+    background: var(--bg);
+    padding: 2rem;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--accent);
+    transition: height 0.3s;
+  }
+  .skill-card:hover::before { height: 100%; }
+  .skill-card:hover { background: var(--surface); }
+
+  .skill-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .skill-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .skill-level {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .skill-bar {
+    height: 2px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* CERTIFICATIONS */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .cert-card {
+    border: 1px solid var(--border);
+    padding: 1.8rem;
+    transition: all 0.25s;
+    position: relative;
+    background: var(--surface);
+  }
+  .cert-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+
+  .cert-badge {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .cert-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .cert-issuer {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .cert-status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .cert-status.earned { background: rgba(232,255,71,0.1); color: var(--accent); border: 1px solid rgba(232,255,71,0.3); }
+  .cert-status.progress { background: rgba(71,255,232,0.08); color: var(--accent2); border: 1px solid rgba(71,255,232,0.2); }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+
+  .project-header {
+    padding: 1.8rem 1.8rem 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .project-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .project-link {
+    width: 28px; height: 28px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .project-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .project-body { padding: 1.5rem 1.8rem 1.8rem; }
+
+  .project-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+
+  .project-desc {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: #777;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    padding: 0.2rem 0.6rem;
+    background: var(--surface2);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    border: 1px solid var(--border);
+  }
+
+  /* YOUTUBE */
+  .yt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .yt-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: all 0.25s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .yt-card:hover {
+    border-color: #ff4747;
+    transform: translateY(-4px);
+  }
+
+  .yt-thumb {
+    aspect-ratio: 16/9;
+    background: var(--surface2);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .yt-play {
+    width: 52px; height: 52px;
+    background: rgba(255,71,71,0.85);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    transition: transform 0.2s;
+  }
+  .yt-card:hover .yt-play { transform: scale(1.1); }
+
+  .yt-info { padding: 1.2rem 1.5rem; }
+
+  .yt-title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+  }
+
+  .yt-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--surface);
+    padding: 6rem 4rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-inner { max-width: 700px; margin: 0 auto; }
+
+  .contact-intro {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    transition: all 0.2s;
+  }
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(232,255,71,0.04);
+  }
+
+  .email-big {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 800;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: opacity 0.2s;
+  }
+  .email-big:hover { opacity: 0.7; }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * {
+    animation: fadeInUp 0.8s ease both;
+  }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.55s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 7rem 1.5rem 3rem; }
+    .hero-right { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .skills-wrapper { padding: 4rem 1.5rem; }
+    .contact-section { padding: 4rem 1.5rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+    .scroll-hint { left: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">mm.dev</a>
+  <ul class="nav-links">
+    <li><a href="#about">O mnie</a></li>
+    <li><a href="#skills">Umiejętności</a></li>
+    <li><a href="#projects">Projekty</a></li>
+    <li><a href="#youtube">YouTube</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home" style="max-width:none; padding:0; margin:0;">
+  <div class="hero-left">
+    <div class="hero-tag">IT Specialist · Help Desk</div>
+    <h1 class="hero-name">
+      Mateusz<br>
+      <span class="accent-line">Markiewicz</span>
+    </h1>
+    <p class="hero-role">
+      Buduję narzędzia automatyzacyjne dla IT.<br>
+      <span>CompTIA A+ · Network+ · PowerShell · Python</span>
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">Zobacz projekty</a>
+      <a href="#contact" class="btn btn-ghost">Skontaktuj się</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-grid-bg"></div>
+    <div class="float-badge" style="top:20%;left:5%;">[ POWERSHELL ]</div>
+    <div class="float-badge">[ COMPTIA A+ ]</div>
+    <div class="float-badge">[ PYTHON ]</div>
+    <div class="float-badge">[ ACTIVE DIRECTORY ]</div>
+    <div class="hero-graphic">
+      <div class="hero-orbit"></div>
+      <div class="avatar-placeholder">👨‍💻</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">O mnie</div>
+  <h2 class="section-title">Kim jestem</h2>
+  <div class="about-grid">
+    <div class="about-text fade-up">
+      <p>
+        Jestem <strong>kandydatem na Help Desk / Junior Sysadmin</strong> z pasją do automatyzacji powtarzalnych procesów IT.
+        Uczę się od początku 2025 roku według ustrukturyzowanego planu — codziennie, konsekwentnie.
+      </p>
+      <p>
+        Moje podejście jest praktyczne: zamiast tylko przerabiać kursy, <strong>buduję realne projekty</strong> — skrypty PowerShell, aplikacje Pythonowe, systemy monitoringu — które rozwiązują prawdziwe problemy helpdesku.
+      </p>
+      <p>
+        Dokumentuję całą swoją naukę na <strong>YouTube</strong> i GitHubie, żeby przyszły pracodawca mógł zobaczyć nie tylko efekty, ale też jak myślę i jak uczę się nowych rzeczy.
+      </p>
+    </div>
+    <div class="about-stats fade-up">
+      <div class="stat-box">
+        <div class="stat-number">7</div>
+        <div class="stat-label">Projektów portfolio</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">34</div>
+        <div class="stat-label">Tygodnie planu</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">~378h</div>
+        <div class="stat-label">Godzin nauki (core)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Certyfikatów w planie</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<div class="skills-section">
+  <div class="skills-wrapper">
+    <div class="section-label">Umiejętności</div>
+    <h2 class="section-title">Stack technologiczny</h2>
+    <div class="skills-grid">
+      <div class="skill-card fade-up">
+        <span class="skill-icon">🖥️</span>
+        <div class="skill-name">PowerShell</div>
+        <div class="skill-level">Podstawowy → Średni</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="skill-icon">🐍</span>
+        <div class="skill-name">Python</div>
+        <div class="skill-level">Podstawowy</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:40%"></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="skill-icon">🐧</span>
+        <div class="skill-name">Linux (CLI)</div>
+        <div class="skill-level">Podstawowy</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:45%"></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="skill-icon">🌐</span>
+        <div class="skill-name">Active Directory</div>
+        <div class="skill-level">Podstawowy</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:35%"></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="skill-icon">🔒</span>
+        <div class="skill-name">Security (SC-900)</div>
+        <div class="skill-level">W trakcie nauki</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:30%"></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="skill-icon">🗂️</span>
+        <div class="skill-name">Git / GitHub</div>
+        <div class="skill-level">Podstawowy</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:50%"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="section-label">Certyfikaty</div>
+  <h2 class="section-title">Ścieżka certyfikacji</h2>
+  <div class="certs-grid">
+    <div class="cert-card fade-up">
+      <div class="cert-badge">🎓</div>
+      <div class="cert-name">CompTIA A+</div>
+      <div class="cert-issuer">CompTIA · Styczeń → Maj 2025</div>
+      <span class="cert-status progress">W trakcie</span>
+    </div>
+    <div class="cert-card fade-up">
+      <div class="cert-badge">🐧</div>
+      <div class="cert-name">Linux Essentials</div>
+      <div class="cert-issuer">LPI · Marzec → Kwiecień 2025</div>
+      <span class="cert-status progress">W trakcie</span>
+    </div>
+    <div class="cert-card fade-up">
+      <div class="cert-badge">🔐</div>
+      <div class="cert-name">SC-900 Security</div>
+      <div class="cert-issuer">Microsoft · Kwiecień → Maj 2025</div>
+      <span class="cert-status progress">Planowany</span>
+    </div>
+    <div class="cert-card fade-up">
+      <div class="cert-badge">🌐</div>
+      <div class="cert-name">CompTIA Network+</div>
+      <div class="cert-issuer">CompTIA · Czerwiec → Sierpień 2025</div>
+      <span class="cert-status progress">Planowany</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Projekty</div>
+  <h2 class="section-title">Portfolio projektów</h2>
+  <div class="projects-grid">
+
+    <div class="project-card fade-up">
+      <div class="project-header">
+        <div class="project-num">#01 · Active Directory</div>
+        <div class="project-links">
+          <a href="#" class="project-link" title="GitHub">⌥</a>
+          <a href="#" class="project-link" title="YouTube">▶</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-name">UserLifecycle Manager</div>
+        <p class="project-desc">Zautomatyzowany onboarding/offboarding w Active Directory. Skrypt prowadzi technika przez każdy krok z walidacją i raportem HTML.</p>
+        <div class="project-tags">
+          <span class="tag">PowerShell 7</span>
+          <span class="tag">Active Directory</span>
+          <span class="tag">HTML Report</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-header">
+        <div class="project-num">#02 · Diagnostics</div>
+        <div class="project-links">
+          <a href="#" class="project-link" title="GitHub">⌥</a>
+          <a href="#" class="project-link" title="YouTube">▶</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-name">WinDiag — Windows Diagnostics</div>
+        <p class="project-desc">Kompleksowe narzędzie diagnostyki Windows z logowaniem, raportowaniem i alertami. Pierwszy projekt na GitHub.</p>
+        <div class="project-tags">
+          <span class="tag">PowerShell</span>
+          <span class="tag">WMI</span>
+          <span class="tag">GitHub</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-header">
+        <div class="project-num">#03 · ITSM</div>
+        <div class="project-links">
+          <a href="#" class="project-link" title="GitHub">⌥</a>
+          <a href="#" class="project-link" title="YouTube">▶</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-name">TicketFlow — Ticket Categorizer</div>
+        <p class="project-desc">Automatyczny parser i kategoryzator zgłoszeń IT. Python + web, rozumienie ITSM. Kategoryzuje ~80% ticketów automatycznie.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">ITSM</span>
+          <span class="tag">REST API</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-header">
+        <div class="project-num">#04 · Automation</div>
+        <div class="project-links">
+          <a href="#" class="project-link" title="GitHub">⌥</a>
+          <a href="#" class="project-link" title="YouTube">▶</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-name">AutoDesk — Helpdesk Automation</div>
+        <p class="project-desc">Rozszerzone automatyzacje helpdesku łączące PowerShell i Python. Reset hasła poniżej 30 sekund.</p>
+        <div class="project-tags">
+          <span class="tag">PowerShell</span>
+          <span class="tag">Python</span>
+          <span class="tag">AD Integration</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-header">
+        <div class="project-num">#05 · Analytics</div>
+        <div class="project-links">
+          <a href="#" class="project-link" title="GitHub">⌥</a>
+          <a href="#" class="project-link" title="YouTube">▶</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-name">HelpStats — SLA Dashboard</div>
+        <p class="project-desc">Dashboard SLA ticketów w czasie rzeczywistym. Python + dane, monitoring SLA real-time z alertami.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Data Viz</span>
+          <span class="tag">SLA Monitoring</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-header">
+        <div class="project-num">#06 · Networking</div>
+        <div class="project-links">
+          <a href="#" class="project-link" title="GitHub">⌥</a>
+          <a href="#" class="project-link" title="YouTube">▶</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-name">NetMapper — Network Scanner</div>
+        <p class="project-desc">Mapa sieci i inwentarz urządzeń. Python + sieć, dokumentacja topologii. Finałowy projekt wzmacniający Network+.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Networking</span>
+          <span class="tag">Network+</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- YOUTUBE -->
+<section id="youtube">
+  <div class="section-label">YouTube</div>
+  <h2 class="section-title">Moje filmy</h2>
+  <div class="yt-grid">
+
+    <a href="#" class="yt-card fade-up">
+      <div class="yt-thumb" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+        <div class="yt-play">▶</div>
+      </div>
+      <div class="yt-info">
+        <div class="yt-title">UserLifecycle Manager — AD Onboarding w PowerShell</div>
+        <div class="yt-meta">6 min · Help Desk #01</div>
+      </div>
+    </a>
+
+    <a href="#" class="yt-card fade-up">
+      <div class="yt-thumb" style="background: linear-gradient(135deg, #1a2e1a, #162116);">
+        <div class="yt-play">▶</div>
+      </div>
+      <div class="yt-info">
+        <div class="yt-title">WinDiag — Diagnostyka Windows od zera</div>
+        <div class="yt-meta">7 min · Help Desk #02</div>
+      </div>
+    </a>
+
+    <a href="#" class="yt-card fade-up">
+      <div class="yt-thumb" style="background: linear-gradient(135deg, #2e1a1a, #211616);">
+        <div class="yt-play">▶</div>
+      </div>
+      <div class="yt-info">
+        <div class="yt-title">TicketFlow — Python i automatyzacja ITSM</div>
+        <div class="yt-meta">8 min · Help Desk #03</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-inner fade-up">
+    <div class="section-label" style="justify-content:center;">Kontakt</div>
+    <h2 class="section-title" style="font-size:clamp(2rem,5vw,3.5rem);">Porozmawiajmy</h2>
+    <p class="contact-intro">
+      Szukam pierwszej roli jako Help Desk L1/L2 lub Junior Sysadmin.<br>
+      Jeśli widzisz tu kogoś, kto pasuje do Twojego zespołu — napisz.
+    </p>
+    <a href="mailto:mateefio17@outlook.com" class="email-big">mateefio17@outlook.com</a>
+    <div class="contact-links" style="margin-top:2.5rem;">
+      <a href="https://github.com/matefio17" class="contact-link" target="_blank">
+        <span>⌥</span> GitHub
+      </a>
+      <a href="https://linkedin.com/in/mateusz-markiewicz2" class="contact-link" target="_blank">
+        <span>in</span> LinkedIn
+      </a>
+      <a href="https://www.youtube.com/@matek22697" class="contact-link" target="_blank">
+        <span>▶</span> YouTube
+      </a>
+      <a href="#" class="contact-link">
+        <span>📄</span> CV (PDF)
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Mateusz Markiewicz · Strona stanowi część portfolio /p>
+  <p>Warsaw, PL · Otwarty na propozycje pracy</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+      ring.style.opacity = '0';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.opacity = '0.5';
+    });
+  });
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Skill bar animation on scroll
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          const w = bar.style.width;
+          bar.style.width = '0';
+          setTimeout(() => bar.style.width = w, 100);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.skills-grid').forEach(el => barObserver.observe(el));
+</script>
+
+</body>
+</html>
