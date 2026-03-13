@@ -761,19 +761,66 @@
   .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
   .hero-left > *:nth-child(4) { animation-delay: 0.55s; }
 
+  /* Hamburger button */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 200;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--accent);
+    transition: all 0.3s;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
   /* RESPONSIVE */
   @media (max-width: 900px) {
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+
     nav { padding: 1.2rem 1.5rem; }
-    .nav-links { gap: 1.5rem; }
+    .nav-toggle { display: flex; }
+
+    .nav-links {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,10,0.97);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      z-index: 150;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { font-size: 1.2rem; letter-spacing: 0.15em; }
+
     .hero { grid-template-columns: 1fr; min-height: auto; }
     .hero-left { padding: 7rem 1.5rem 3rem; }
     .hero-right { display: none; }
     section { padding: 4rem 1.5rem; }
     .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
     .skills-wrapper { padding: 4rem 1.5rem; }
+    .skills-grid { grid-template-columns: 1fr; }
     .contact-section { padding: 4rem 1.5rem; }
     footer { padding: 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
-    .scroll-hint { left: 1.5rem; }
+    .scroll-hint { display: none; }
+    .certs-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .yt-grid { grid-template-columns: 1fr; }
+    .email-big { word-break: break-all; }
   }
 </style>
 </head>
@@ -786,12 +833,15 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">mm.dev</a>
-  <ul class="nav-links">
-    <li><a href="#about">O mnie</a></li>
-    <li><a href="#skills">Umiejętności</a></li>
-    <li><a href="#projects">Projekty</a></li>
-    <li><a href="#youtube">YouTube</a></li>
-    <li><a href="#contact">Kontakt</a></li>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" class="nav-close">O mnie</a></li>
+    <li><a href="#skills" class="nav-close">Umiejętności</a></li>
+    <li><a href="#projects" class="nav-close">Projekty</a></li>
+    <li><a href="#youtube" class="nav-close">YouTube</a></li>
+    <li><a href="#contact" class="nav-close">Kontakt</a></li>
   </ul>
 </nav>
 
@@ -1125,7 +1175,7 @@
       Szukam pierwszej roli jako Help Desk L1/L2 lub Junior Sysadmin.<br>
       Jeśli widzisz tu kogoś, kto pasuje do Twojego zespołu — napisz.
     </p>
-    <a href="mailto:mateefio17@outlook.com" class="email-big">mateefio17@outlook.com</a>
+    <a href="/cdn-cgi/l/email-protection#5835392c3d3d3e3137696f18372d2c34373733763b3735" class="email-big"><span class="__cf_email__" data-cfemail="7815190c1d1d1e1117494f38170d0c14171713561b1715">[email&#160;protected]</span></a>
     <div class="contact-links" style="margin-top:2.5rem;">
       <a href="https://github.com/matefio17" class="contact-link" target="_blank">
         <span>⌥</span> GitHub
@@ -1145,11 +1195,11 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 Mateusz Markiewicz · Strona stanowi część portfolio /p>
+  <p>© 2025 Mateusz Markiewicz · Strona stanowi część portfolio</p>
   <p>Warsaw, PL · Otwarty na propozycje pracy</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Custom cursor
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
@@ -1199,14 +1249,32 @@
         entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
           const w = bar.style.width;
           bar.style.width = '0';
-          setTimeout(() => bar.style.width = w, 100);
+          setTimeout(() => { bar.style.width = w; }, 100);
         });
+        barObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.3 });
 
   document.querySelectorAll('.skills-grid').forEach(el => barObserver.observe(el));
-</script>
 
+  // Hamburger menu
+  const navToggle = document.getElementById('navToggle');
+  const navLinks  = document.getElementById('navLinks');
+
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('open');
+    navLinks.classList.toggle('open');
+    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+  });
+
+  document.querySelectorAll('.nav-close').forEach(link => {
+    link.addEventListener('click', () => {
+      navToggle.classList.remove('open');
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+</script>
 </body>
 </html>
