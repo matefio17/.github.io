@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
@@ -54,96 +55,99 @@
     .section-title{font-size:clamp(1.4rem,5vw,1.8rem);font-weight:800;letter-spacing:-.02em;flex-shrink:0}
     .section-line{flex:1;min-width:16px;height:1px;background:var(--border)}
 
-    /* SKILLS — 1 col base, stretch cards equal height */
-    .skills-grid{display:grid;grid-template-columns:1fr;gap:1rem;align-items:stretch}
-    .skill-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.25rem;position:relative;overflow:hidden;transition:border-color .2s;display:flex;flex-direction:column}
-    .skill-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);transform:scaleY(0);transition:transform .25s;transform-origin:bottom}
-    .skill-card:hover{border-color:var(--accent)}
-    .skill-card:hover::before{transform:scaleY(1)}
-    .skill-icon{font-size:1.4rem;margin-bottom:.6rem}
-    .skill-name{font-weight:700;font-size:.95rem;margin-bottom:.4rem}
-    .skill-desc{font-family:var(--mono);font-size:.72rem;color:var(--muted);line-height:1.6}
+```
+/* SKILLS — 1 col base, stretch cards equal height */
+.skills-grid{display:grid;grid-template-columns:1fr;gap:1rem;align-items:stretch}
+.skill-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.25rem;position:relative;overflow:hidden;transition:border-color .2s;display:flex;flex-direction:column}
+.skill-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);transform:scaleY(0);transition:transform .25s;transform-origin:bottom}
+.skill-card:hover{border-color:var(--accent)}
+.skill-card:hover::before{transform:scaleY(1)}
+.skill-icon{font-size:1.4rem;margin-bottom:.6rem}
+.skill-name{font-weight:700;font-size:.95rem;margin-bottom:.4rem}
+.skill-desc{font-family:var(--mono);font-size:.72rem;color:var(--muted);line-height:1.6}
 
-    /* PROJECTS */
-    .projects-list{display:flex;flex-direction:column;gap:1.25rem}
-    .project-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.5rem;transition:border-color .2s}
-    .project-card:hover{border-color:var(--accent2)}
-    .project-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem;flex-wrap:wrap}
-    .project-status{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;border-radius:2px;white-space:nowrap}
-    .status-active{background:rgba(0,229,160,.15);color:var(--accent)}
-    .status-wip{background:rgba(255,107,53,.15);color:var(--warn)}
-    .project-name{font-size:clamp(.95rem,3.5vw,1.1rem);font-weight:700;word-break:break-word}
-    .project-desc{color:#9ca3af;font-size:.88rem;margin-bottom:1rem;line-height:1.7}
-    .tags{display:flex;flex-wrap:wrap;gap:.4rem}
-    .tag{font-family:var(--mono);font-size:.66rem;padding:.2rem .55rem;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:2px;color:var(--muted);white-space:nowrap}
-    .project-roadmap-note{margin-top:.85rem;font-family:var(--mono);font-size:.68rem;color:var(--muted);line-height:1.6}
-    .project-arrow{display:none}
-    .roadmap{margin-top:1.25rem;display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-    .week-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:5px;padding:.85rem 1rem}
-    .week-label{font-family:var(--mono);font-size:.6rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem}
-    .week-title{font-size:.82rem;font-weight:700}
+/* PROJECTS */
+.projects-list{display:flex;flex-direction:column;gap:1.25rem}
+.project-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.5rem;transition:border-color .2s}
+.project-card:hover{border-color:var(--accent2)}
+.project-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem;flex-wrap:wrap}
+.project-status{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;border-radius:2px;white-space:nowrap}
+.status-active{background:rgba(0,229,160,.15);color:var(--accent)}
+.status-wip{background:rgba(255,107,53,.15);color:var(--warn)}
+.project-name{font-size:clamp(.95rem,3.5vw,1.1rem);font-weight:700;word-break:break-word}
+.project-desc{color:#9ca3af;font-size:.88rem;margin-bottom:1rem;line-height:1.7}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.tag{font-family:var(--mono);font-size:.66rem;padding:.2rem .55rem;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:2px;color:var(--muted);white-space:nowrap}
+.project-roadmap-note{margin-top:.85rem;font-family:var(--mono);font-size:.68rem;color:var(--muted);line-height:1.6}
+.project-arrow{display:none}
+.roadmap{margin-top:1.25rem;display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.week-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:5px;padding:.85rem 1rem}
+.week-label{font-family:var(--mono);font-size:.6rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem}
+.week-title{font-size:.82rem;font-weight:700}
 
-    /* CV — 1 col base */
-    .cv-grid{display:grid;grid-template-columns:1fr;gap:1rem}
-    .cv-block{display:flex;flex-direction:column;gap:1rem}
-    .cv-item{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.25rem}
-    .cv-item-label{font-family:var(--mono);font-size:.6rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.25rem}
-    .cv-item-title{font-weight:700;font-size:.92rem}
-    .cv-item-desc{font-size:.8rem;color:var(--muted);margin-top:.25rem;font-family:var(--mono);line-height:1.55}
-    .cert-card{border-color:rgba(0,229,160,.25)!important;background:linear-gradient(135deg,#111c18 0%,var(--surface) 100%)!important;position:relative}
-    .cert-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent);border-radius:6px 6px 0 0}
-    .cert-card-top{display:flex;align-items:center;justify-content:space-between}
-    .cert-icon{font-size:1.6rem}
-    .cert-badge-large{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;font-weight:700;padding:.3rem .65rem;border-radius:2px;background:rgba(0,229,160,.15);border:1px solid rgba(0,229,160,.4);color:var(--accent)}
-    .cert-badge-google{background:rgba(0,119,255,.12);border-color:rgba(0,119,255,.35);color:var(--accent2)}
-    .cert-title{font-size:1.05rem!important;letter-spacing:-.01em}
-    .cert-topics{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
-    .cert-topic{font-family:var(--mono);font-size:.62rem;padding:.15rem .5rem;border-radius:2px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);color:var(--accent)}
+/* CV — 1 col base */
+.cv-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+.cv-block{display:flex;flex-direction:column;gap:1rem}
+.cv-item{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.25rem}
+.cv-item-label{font-family:var(--mono);font-size:.6rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.25rem}
+.cv-item-title{font-weight:700;font-size:.92rem}
+.cv-item-desc{font-size:.8rem;color:var(--muted);margin-top:.25rem;font-family:var(--mono);line-height:1.55}
+.cert-card{border-color:rgba(0,229,160,.25)!important;background:linear-gradient(135deg,#111c18 0%,var(--surface) 100%)!important;position:relative}
+.cert-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent);border-radius:6px 6px 0 0}
+.cert-card-top{display:flex;align-items:center;justify-content:space-between}
+.cert-icon{font-size:1.6rem}
+.cert-badge-large{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;font-weight:700;padding:.3rem .65rem;border-radius:2px;background:rgba(0,229,160,.15);border:1px solid rgba(0,229,160,.4);color:var(--accent)}
+.cert-badge-google{background:rgba(0,119,255,.12);border-color:rgba(0,119,255,.35);color:var(--accent2)}
+.cert-title{font-size:1.05rem!important;letter-spacing:-.01em}
+.cert-topics{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
+.cert-topic{font-family:var(--mono);font-size:.62rem;padding:.15rem .5rem;border-radius:2px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);color:var(--accent)}
 
-    /* CONTACT — 1 col base, poziomy układ kart */
-    .contact-grid{display:grid;grid-template-columns:1fr;gap:1rem}
-    .contact-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.25rem;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s;display:flex;flex-direction:row;align-items:center;gap:1rem}
-    .contact-card:hover,.contact-card:active{border-color:var(--accent);transform:translateY(-2px)}
-    .contact-card-icon{font-size:1.3rem;flex-shrink:0}
-    .contact-card-body{display:flex;flex-direction:column;gap:.2rem;min-width:0}
-    .contact-card-label{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-    .contact-card-value{font-size:clamp(.8rem,3.5vw,.9rem);font-weight:600;color:var(--accent);overflow-wrap:break-word;word-break:break-all}
+/* CONTACT — 1 col base, poziomy układ kart */
+.contact-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+.contact-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.25rem;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s;display:flex;flex-direction:row;align-items:center;gap:1rem}
+.contact-card:hover,.contact-card:active{border-color:var(--accent);transform:translateY(-2px)}
+.contact-card-icon{font-size:1.3rem;flex-shrink:0}
+.contact-card-body{display:flex;flex-direction:column;gap:.2rem;min-width:0}
+.contact-card-label{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.contact-card-value{font-size:clamp(.8rem,3.5vw,.9rem);font-weight:600;color:var(--accent);overflow-wrap:break-word;word-break:break-all}
 
-    footer{border-top:1px solid var(--border);text-align:center;padding:2rem 1.25rem;font-family:var(--mono);font-size:.68rem;color:var(--muted)}
-    footer span{color:var(--accent)}
+footer{border-top:1px solid var(--border);text-align:center;padding:2rem 1.25rem;font-family:var(--mono);font-size:.68rem;color:var(--muted)}
+footer span{color:var(--accent)}
 
-    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-    .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
-    .reveal.visible{opacity:1;transform:translateY(0)}
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
 
-    /* 480px: skills 2-col, contact 2-col z pionowym układem kart */
-    @media(min-width:480px){
-      .skills-grid{grid-template-columns:1fr 1fr}
-      .contact-grid{grid-template-columns:1fr 1fr}
-      .contact-card{flex-direction:column;align-items:flex-start;gap:.4rem}
-    }
+/* 480px: skills 2-col, contact 2-col z pionowym układem kart */
+@media(min-width:480px){
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr 1fr}
+  .contact-card{flex-direction:column;align-items:flex-start;gap:.4rem}
+}
 
-    /* 600px: sekcja padding, cv 2-col, roadmap 3-col */
-    @media(min-width:600px){
-      section{padding:5rem 2rem}
-      .cv-grid{grid-template-columns:1fr 1fr}
-      .roadmap{grid-template-columns:repeat(3,1fr)}
-    }
+/* 600px: sekcja padding, cv 2-col, roadmap 3-col */
+@media(min-width:600px){
+  section{padding:5rem 2rem}
+  .cv-grid{grid-template-columns:1fr 1fr}
+  .roadmap{grid-template-columns:repeat(3,1fr)}
+}
 
-    /* 900px: desktop */
-    @media(min-width:900px){
-      nav{padding:0 3rem}
-      .nav-burger{display:none}
-      .nav-links-desktop{display:flex}
-      section{padding:7rem 3rem}
-      .hero-grid{display:block}
-      .skills-grid{grid-template-columns:repeat(3,1fr)}
-      .project-card{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start}
-      .project-arrow{display:block;font-size:1.4rem;color:var(--muted);margin-top:.25rem;transition:color .2s,transform .2s}
-      .project-card:hover .project-arrow{color:var(--accent2);transform:translate(3px,-3px)}
-      .roadmap{grid-template-columns:repeat(3,1fr)}
-    }
+/* 900px: desktop */
+@media(min-width:900px){
+  nav{padding:0 3rem}
+  .nav-burger{display:none}
+  .nav-links-desktop{display:flex}
+  section{padding:7rem 3rem}
+  .hero-grid{display:block}
+  .skills-grid{grid-template-columns:repeat(3,1fr)}
+  .project-card{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start}
+  .project-arrow{display:block;font-size:1.4rem;color:var(--muted);margin-top:.25rem;transition:color .2s,transform .2s}
+  .project-card:hover .project-arrow{color:var(--accent2);transform:translate(3px,-3px)}
+  .roadmap{grid-template-columns:repeat(3,1fr)}
+}
+```
+
   </style>
 </head>
 <body>
@@ -195,6 +199,7 @@
     <div class="skill-card reveal"><div class="skill-icon">🗂️</div><div class="skill-name">Active Directory</div><div class="skill-desc">AD DS, OU structure, Group Policy, PowerShell automation — środowisko corp.local (w budowie)</div></div>
     <div class="skill-card reveal"><div class="skill-icon">⚙️</div><div class="skill-name">Bash Scripting</div><div class="skill-desc">Automatyzacja zadań systemowych, provisioning, integracja z usługami Linux</div></div>
     <div class="skill-card reveal"><div class="skill-icon">🖥️</div><div class="skill-name">Hardware &amp; Helpdesk</div><div class="skill-desc">CompTIA A+ — diagnostyka sprzętu, troubleshooting sieci i systemów, wsparcie techniczne</div></div>
+    <div class="skill-card reveal"><div class="skill-icon">🎟️</div><div class="skill-name">Jira Service Management</div><div class="skill-desc">ITSM, ticketing, workflow configuration, SLA management, incident lifecycle, dokumentacja techniczna zgłoszeń</div></div>
   </div>
 </section>
 <section id="projects">
@@ -211,7 +216,7 @@
     </div>
     <div class="project-card reveal">
       <div>
-        <div class="project-header"><span class="project-status status-wip">In Progress</span><h3 class="project-name">Jira Ticketing System Lab 🎟️</h3></div>
+        <div class="project-header"><span class="project-status status-active">Completed</span><h3 class="project-name">Jira Ticketing System Lab 🎟️</h3></div>
         <p class="project-desc">Profesjonalna symulacja operacji IT Support w Jira Service Management. Projekt obejmuje konfigurację workflow, zarządzanie cyklem życia zgłoszenia (SLA, priorytetyzacja) oraz dokumentację techniczną rozwiązań. Scenariusze oparte na CompTIA A+, obejmujące m.in. incydenty bezpieczeństwa, troubleshooting sieciowy oraz zarządzanie dostępem.</p>
         <div class="tags"><span class="tag">Jira Service Management</span><span class="tag">ITSM</span><span class="tag">Helpdesk</span><span class="tag">SLA</span><span class="tag">Incident Management</span><span class="tag">Documentation</span></div>
         <p class="project-roadmap-note">Kluczowe: Eskalacja incydentów security, komunikacja z użytkownikiem, diagnostyka Windows CMD/PowerShell.</p>
