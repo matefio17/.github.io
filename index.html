@@ -41,6 +41,12 @@
     .hero-tag{font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.25rem;opacity:0;animation:fadeUp .6s .2s forwards}
     .hero-name{font-size:clamp(2.6rem,11vw,6.5rem);font-weight:800;line-height:1;letter-spacing:-.03em;margin-bottom:1rem;opacity:0;animation:fadeUp .6s .35s forwards}
     .hero-name span{color:var(--accent)}
+    @media(max-width:899px){
+      #hero{align-items:center;text-align:center}
+      .hero-tag,.hero-subtitle,.hero-bio{text-align:center}
+      .hero-links{justify-content:center}
+      .hero-name{font-size:clamp(1.8rem,12vw,3.5rem);white-space:nowrap;text-align:center}
+    }
     .hero-subtitle{font-family:var(--mono);font-size:clamp(.72rem,3vw,.95rem);color:var(--muted);margin-bottom:1.5rem;opacity:0;animation:fadeUp .6s .5s forwards}
     .hero-bio{font-size:clamp(.9rem,3.5vw,1.05rem);color:#9ca3af;line-height:1.8;margin-bottom:2rem;opacity:0;animation:fadeUp .6s .65s forwards}
     .hero-links{display:flex;flex-wrap:wrap;gap:.75rem;opacity:0;animation:fadeUp .6s .8s forwards}
@@ -56,7 +62,7 @@
     .section-line{flex:1;min-width:16px;height:1px;background:var(--border)}
 
 ```
-/* SKILLS — 1 col base, stretch cards equal height */
+/* SKILLS */
 .skills-grid{display:grid;grid-template-columns:1fr;gap:1rem;align-items:stretch}
 .skill-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.25rem;position:relative;overflow:hidden;transition:border-color .2s;display:flex;flex-direction:column}
 .skill-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);transform:scaleY(0);transition:transform .25s;transform-origin:bottom}
@@ -85,7 +91,22 @@
 .week-label{font-family:var(--mono);font-size:.6rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem}
 .week-title{font-size:.82rem;font-weight:700}
 
-/* CV — 1 col base */
+/* BACKUP LAB — inline summary grid */
+.backup-summary{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1rem;margin-bottom:1rem;justify-items:stretch}
+.backup-type.incr{grid-column:1 / -1;max-width:calc(50% - .3rem);margin:0 auto;width:100%}
+.backup-type{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:5px;padding:.75rem 1rem;position:relative;overflow:hidden}
+.backup-type::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px}
+.backup-type.full::before{background:var(--accent)}
+.backup-type.diff::before{background:var(--accent2)}
+.backup-type.incr::before{background:var(--warn)}
+.backup-type-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.25rem}
+.backup-type.full .backup-type-label{color:var(--accent)}
+.backup-type.diff .backup-type-label{color:var(--accent2)}
+.backup-type.incr .backup-type-label{color:var(--warn)}
+.backup-type-title{font-size:.82rem;font-weight:700}
+.backup-type-desc{font-family:var(--mono);font-size:.62rem;color:var(--muted);margin-top:.2rem;line-height:1.5}
+
+/* CV */
 .cv-grid{display:grid;grid-template-columns:1fr;gap:1rem}
 .cv-block{display:flex;flex-direction:column;gap:1rem}
 .cv-item{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.25rem}
@@ -102,7 +123,7 @@
 .cert-topics{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
 .cert-topic{font-family:var(--mono);font-size:.62rem;padding:.15rem .5rem;border-radius:2px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);color:var(--accent)}
 
-/* CONTACT — 1 col base, poziomy układ kart */
+/* CONTACT */
 .contact-grid{display:grid;grid-template-columns:1fr;gap:1rem}
 .contact-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.25rem;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s;display:flex;flex-direction:row;align-items:center;gap:1rem}
 .contact-card:hover,.contact-card:active{border-color:var(--accent);transform:translateY(-2px)}
@@ -119,21 +140,18 @@ footer span{color:var(--accent)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
 
-/* 480px: skills 2-col, contact 2-col z pionowym układem kart */
 @media(min-width:480px){
   .skills-grid{grid-template-columns:1fr 1fr}
   .contact-grid{grid-template-columns:1fr 1fr}
   .contact-card{flex-direction:column;align-items:flex-start;gap:.4rem}
+  .backup-summary{grid-template-columns:1fr 1fr 1fr}
+  .backup-type.incr{grid-column:auto;max-width:none;margin:0}
 }
-
-/* 600px: sekcja padding, cv 2-col, roadmap 3-col */
 @media(min-width:600px){
   section{padding:5rem 2rem}
   .cv-grid{grid-template-columns:1fr 1fr}
   .roadmap{grid-template-columns:repeat(3,1fr)}
 }
-
-/* 900px: desktop */
 @media(min-width:900px){
   nav{padding:0 3rem}
   .nav-burger{display:none}
@@ -175,7 +193,7 @@ footer span{color:var(--accent)}
 </div>
 <section id="hero">
   <div class="hero-tag">// Junior IT — Sysadmin / IT Ops</div>
-  <h1 class="hero-name">Mateusz<br /><span>Markiewicz</span></h1>
+  <h1 class="hero-name">Mateusz <span>Markiewicz</span></h1>
   <p class="hero-subtitle">Linux · Active Directory · Python · CompTIA A+</p>
   <p class="hero-bio">Pasjonat systemów Linux, Pythona i cyberbezpieczeństwa. Buduję własne środowisko laboratoryjne, automatyzuję zadania i uczę się administracji serwerami od podstaw — z certyfikatem CompTIA A+ w ręku i celem: pierwsza praca w IT.</p>
   <div class="hero-links">
@@ -190,6 +208,7 @@ footer span{color:var(--accent)}
     <circle cx="160" cy="160" r="4" fill="#00e5a0"/>
   </svg>
 </section>
+
 <section id="skills">
   <div class="section-header reveal"><span class="section-num">01</span><h2 class="section-title">Kompetencje</h2><div class="section-line"></div></div>
   <div class="skills-grid">
@@ -202,53 +221,94 @@ footer span{color:var(--accent)}
     <div class="skill-card reveal"><div class="skill-icon">🎟️</div><div class="skill-name">Jira Service Management</div><div class="skill-desc">ITSM, ticketing, workflow configuration, SLA management, incident lifecycle, dokumentacja techniczna zgłoszeń</div></div>
   </div>
 </section>
+
 <section id="projects">
   <div class="section-header reveal"><span class="section-num">02</span><h2 class="section-title">Projekty</h2><div class="section-line"></div></div>
   <div class="projects-list">
-    <div class="project-card reveal">
-      <div>
-        <div class="project-header"><span class="project-status status-active">Active</span><h3 class="project-name">Disk Health Checker</h3></div>
-        <p class="project-desc">Lekki monitor wolnego miejsca na dysku pisany w Pythonie. Skrypt działa w pętli, zbiera metryki systemowe i raportuje stan dysku w czasie rzeczywistym — do konsoli i pliku logów. Obsługuje wielopoziomowe statusy (OK / WARNING / CRITICAL), state tracking i pełną obsługę wyjątków. Ewoluuje w kierunku lekkiego observability agenta.</p>
-        <div class="tags"><span class="tag">Python</span><span class="tag">shutil</span><span class="tag">logging</span><span class="tag">System Monitoring</span><span class="tag">Observability</span></div>
-        <p class="project-roadmap-note">Roadmap: email SMTP · Discord webhook · multi-disk · Prometheus export · HTML dashboard</p>
+
+```
+<!-- Disk Health Checker -->
+<div class="project-card reveal">
+  <div>
+    <div class="project-header"><span class="project-status status-active">Active</span><h3 class="project-name">Disk Health Checker</h3></div>
+    <p class="project-desc">Lekki monitor wolnego miejsca na dysku pisany w Pythonie. Skrypt działa w pętli, zbiera metryki systemowe i raportuje stan dysku w czasie rzeczywistym — do konsoli i pliku logów. Obsługuje wielopoziomowe statusy (OK / WARNING / CRITICAL), state tracking i pełną obsługę wyjątków. Ewoluuje w kierunku lekkiego observability agenta.</p>
+    <div class="tags"><span class="tag">Python</span><span class="tag">shutil</span><span class="tag">logging</span><span class="tag">System Monitoring</span><span class="tag">Observability</span></div>
+    <p class="project-roadmap-note">Roadmap: email SMTP · Discord webhook · multi-disk · Prometheus export · HTML dashboard</p>
+  </div>
+  <div class="project-arrow" aria-hidden="true">↗</div>
+</div>
+
+<!-- Jira Ticketing -->
+<div class="project-card reveal">
+  <div>
+    <div class="project-header"><span class="project-status status-active">Completed</span><h3 class="project-name">Jira Ticketing System Lab 🎟️</h3></div>
+    <p class="project-desc">Profesjonalna symulacja operacji IT Support w Jira Service Management. Projekt obejmuje konfigurację workflow, zarządzanie cyklem życia zgłoszenia (SLA, priorytetyzacja) oraz dokumentację techniczną rozwiązań. Scenariusze oparte na CompTIA A+, obejmujące m.in. incydenty bezpieczeństwa, troubleshooting sieciowy oraz zarządzanie dostępem.</p>
+    <div class="tags"><span class="tag">Jira Service Management</span><span class="tag">ITSM</span><span class="tag">Helpdesk</span><span class="tag">SLA</span><span class="tag">Incident Management</span><span class="tag">Documentation</span></div>
+    <p class="project-roadmap-note">Kluczowe: Eskalacja incydentów security, komunikacja z użytkownikiem, diagnostyka Windows CMD/PowerShell.</p>
+  </div>
+  <div class="project-arrow" aria-hidden="true">↗</div>
+</div>
+
+<!-- Backup & Recovery Lab — NOWY PROJEKT -->
+<div class="project-card reveal">
+  <div>
+    <div class="project-header"><span class="project-status status-active">Completed</span><h3 class="project-name">Backup &amp; Recovery Lab 💾</h3></div>
+    <p class="project-desc">Praktyczne laboratorium backupu i odzyskiwania danych w środowisku Windows 11 Pro z Ferro Backup System. Projekt obejmuje konfigurację izolowanego środowiska testowego (osobne wolumeny C:\TEST_DATA i B:\BACKUP_ARCHIVE), wdrożenie trzech typów kopii zapasowych, symulację awarii oraz pełny cykl restore z weryfikacją integralności danych.</p>
+    <div class="backup-summary">
+      <div class="backup-type full">
+        <div class="backup-type-label">Full Backup</div>
+        <div class="backup-type-title">Pełna kopia</div>
+        <div class="backup-type-desc">Bazowy snapshot. Największy rozmiar, najprostszy restore.</div>
       </div>
-      <div class="project-arrow" aria-hidden="true">↗</div>
+      <div class="backup-type diff">
+        <div class="backup-type-label">Differential</div>
+        <div class="backup-type-title">Zmiany od full</div>
+        <div class="backup-type-desc">Rośnie z czasem. Restore = Full + ostatni Diff.</div>
+      </div>
+      <div class="backup-type incr">
+        <div class="backup-type-label">Incremental</div>
+        <div class="backup-type-title">Zmiany od ostatniego</div>
+        <div class="backup-type-desc">Najlżejszy. Restore wymaga pełnego chainu.</div>
+      </div>
     </div>
-    <div class="project-card reveal">
-      <div>
-        <div class="project-header"><span class="project-status status-active">Completed</span><h3 class="project-name">Jira Ticketing System Lab 🎟️</h3></div>
-        <p class="project-desc">Profesjonalna symulacja operacji IT Support w Jira Service Management. Projekt obejmuje konfigurację workflow, zarządzanie cyklem życia zgłoszenia (SLA, priorytetyzacja) oraz dokumentację techniczną rozwiązań. Scenariusze oparte na CompTIA A+, obejmujące m.in. incydenty bezpieczeństwa, troubleshooting sieciowy oraz zarządzanie dostępem.</p>
-        <div class="tags"><span class="tag">Jira Service Management</span><span class="tag">ITSM</span><span class="tag">Helpdesk</span><span class="tag">SLA</span><span class="tag">Incident Management</span><span class="tag">Documentation</span></div>
-        <p class="project-roadmap-note">Kluczowe: Eskalacja incydentów security, komunikacja z użytkownikiem, diagnostyka Windows CMD/PowerShell.</p>
-      </div>
-      <div class="project-arrow" aria-hidden="true">↗</div>
-    </div>
-    <div class="project-card reveal">
-      <div>
-        <div class="project-header"><span class="project-status status-wip">In Progress</span><h3 class="project-name">Active Directory Home Lab — corp.local</h3></div>
-        <p class="project-desc">Kompleksowe środowisko Windows Server 2022 z domeną corp.local budowane od zera wg 9-tygodniowego planu. Obejmuje strukturę OU, zarządzanie użytkownikami i grupami, PowerShell automation, Group Policy, hardening (LAPS, AppLocker, Tiered Admin), integrację Linux z domeną oraz troubleshooting i dokumentację.</p>
-        <div class="tags"><span class="tag">Windows Server 2022</span><span class="tag">Active Directory</span><span class="tag">PowerShell</span><span class="tag">GPO</span><span class="tag">LAPS</span><span class="tag">Samba</span><span class="tag">Hyper-V</span></div>
-        <div class="roadmap">
-          <div class="week-card"><div class="week-label">Tyg 1–2</div><div class="week-title">Fundament domeny</div></div>
-          <div class="week-card"><div class="week-label">Tyg 3–4</div><div class="week-title">PowerShell + AD</div></div>
-          <div class="week-card"><div class="week-label">Tyg 5</div><div class="week-title">GPO & Policies</div></div>
-          <div class="week-card"><div class="week-label">Tyg 6</div><div class="week-title">Security & Hardening</div></div>
-          <div class="week-card"><div class="week-label">Tyg 7</div><div class="week-title">Linux w domenie</div></div>
-          <div class="week-card"><div class="week-label">Tyg 8–9</div><div class="week-title">Troubleshooting & Docs</div></div>
-        </div>
-      </div>
-      <div class="project-arrow" aria-hidden="true">↗</div>
-    </div>
-    <div class="project-card reveal">
-      <div>
-        <div class="project-header"><span class="project-status status-active">Completed</span><h3 class="project-name">Linux Server — Administracja i Hardening</h3></div>
-        <p class="project-desc">Wdrożenie Ubuntu Server 22.04 LTS w środowisku wirtualnym z konfiguracją bezpiecznego dostępu zdalnego, implementacją firewalla UFW, analizą logów incydentów, automatyzacją provisioning użytkowników (zasada Least Privilege) oraz integracją serwera Nginx i infrastruktury DHCP.</p>
-        <div class="tags"><span class="tag">Ubuntu Server</span><span class="tag">SSH ED25519</span><span class="tag">UFW / iptables</span><span class="tag">Nginx</span><span class="tag">Bash</span><span class="tag">Log Analysis</span></div>
-      </div>
-      <div class="project-arrow" aria-hidden="true">↗</div>
+    <div class="tags"><span class="tag">Windows 11 Pro</span><span class="tag">Ferro Backup System</span><span class="tag">PowerShell</span><span class="tag">Disaster Recovery</span><span class="tag">Data Integrity</span><span class="tag">BCDR</span></div>
+    <p class="project-roadmap-note">Kluczowy wniosek: Backup ma wartość dopiero wtedy, gdy restore działa poprawnie — testowanie kopii jest równie ważne jak ich tworzenie.</p>
+  </div>
+  <div class="project-arrow" aria-hidden="true">↗</div>
+</div>
+
+<!-- Active Directory -->
+<div class="project-card reveal">
+  <div>
+    <div class="project-header"><span class="project-status status-wip">In Progress</span><h3 class="project-name">Active Directory Home Lab — corp.local</h3></div>
+    <p class="project-desc">Kompleksowe środowisko Windows Server 2022 z domeną corp.local budowane od zera wg 9-tygodniowego planu. Obejmuje strukturę OU, zarządzanie użytkownikami i grupami, PowerShell automation, Group Policy, hardening (LAPS, AppLocker, Tiered Admin), integrację Linux z domeną oraz troubleshooting i dokumentację.</p>
+    <div class="tags"><span class="tag">Windows Server 2022</span><span class="tag">Active Directory</span><span class="tag">PowerShell</span><span class="tag">GPO</span><span class="tag">LAPS</span><span class="tag">Samba</span><span class="tag">Hyper-V</span></div>
+    <div class="roadmap">
+      <div class="week-card"><div class="week-label">Tyg 1–2</div><div class="week-title">Fundament domeny</div></div>
+      <div class="week-card"><div class="week-label">Tyg 3–4</div><div class="week-title">PowerShell + AD</div></div>
+      <div class="week-card"><div class="week-label">Tyg 5</div><div class="week-title">GPO & Policies</div></div>
+      <div class="week-card"><div class="week-label">Tyg 6</div><div class="week-title">Security & Hardening</div></div>
+      <div class="week-card"><div class="week-label">Tyg 7</div><div class="week-title">Linux w domenie</div></div>
+      <div class="week-card"><div class="week-label">Tyg 8–9</div><div class="week-title">Troubleshooting & Docs</div></div>
     </div>
   </div>
+  <div class="project-arrow" aria-hidden="true">↗</div>
+</div>
+
+<!-- Linux Server -->
+<div class="project-card reveal">
+  <div>
+    <div class="project-header"><span class="project-status status-active">Completed</span><h3 class="project-name">Linux Server — Administracja i Hardening</h3></div>
+    <p class="project-desc">Wdrożenie Ubuntu Server 22.04 LTS w środowisku wirtualnym z konfiguracją bezpiecznego dostępu zdalnego, implementacją firewalla UFW, analizą logów incydentów, automatyzacją provisioning użytkowników (zasada Least Privilege) oraz integracją serwera Nginx i infrastruktury DHCP.</p>
+    <div class="tags"><span class="tag">Ubuntu Server</span><span class="tag">SSH ED25519</span><span class="tag">UFW / iptables</span><span class="tag">Nginx</span><span class="tag">Bash</span><span class="tag">Log Analysis</span></div>
+  </div>
+  <div class="project-arrow" aria-hidden="true">↗</div>
+</div>
+```
+
+  </div>
 </section>
+
 <section id="cv">
   <div class="section-header reveal"><span class="section-num">03</span><h2 class="section-title">CV</h2><div class="section-line"></div></div>
   <div class="cv-grid">
@@ -278,6 +338,7 @@ footer span{color:var(--accent)}
     </div>
   </div>
 </section>
+
 <section id="contact">
   <div class="section-header reveal"><span class="section-num">04</span><h2 class="section-title">Kontakt</h2><div class="section-line"></div></div>
   <p class="reveal" style="color:var(--muted);font-size:.9rem;margin-bottom:1.75rem;max-width:520px">Szukam pierwszej pracy w IT — Helpdesk, Junior Sysadmin lub IT Ops. Chętnie porozmawiam.</p>
@@ -296,7 +357,9 @@ footer span{color:var(--accent)}
     </a>
   </div>
 </section>
+
 <footer><span>Mateusz Markiewicz</span> · Portfolio 2026 · HTML / CSS</footer>
+
 <script>
   const burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
   function closeMenu(){drawer.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded','false');document.body.style.overflow=''}
@@ -307,5 +370,6 @@ footer span{color:var(--accent)}
   const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.1});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
+
 </body>
 </html>
